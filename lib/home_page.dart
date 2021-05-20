@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,9 +16,24 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("NOTES"),
         centerTitle: true,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () async {
+                var description = await Navigator.pushNamed(
+                  context,
+                  "/create-note",
+                );
+                if (description != null) {
+                  setState(() {
+                    notes.add(description as String);
+                  });
+                }
+              }),
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: ListView(children: [
+        Column(
           children: [
             for (var i = 0; i < notes.length; i++)
               Card(
@@ -40,20 +57,7 @@ class _HomePageState extends State<HomePage> {
               ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () async {
-            var description = await Navigator.pushNamed(
-              context,
-              "/create-note",
-            );
-            if (description != null) {
-              setState(() {
-                notes.add(description as String);
-              });
-            }
-          }),
+      ]),
     );
   }
 }
