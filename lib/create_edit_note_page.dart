@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/custom_button.dart';
 
 class CreateEditNotePage extends StatefulWidget {
   @override
@@ -59,14 +60,10 @@ class _CreateEditNotePageState extends State<CreateEditNotePage> {
           if (description.isNotEmpty)
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               SizedBox(
-                width: 250,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context, description);
-                  },
-                  child: Text("Salvar"),
-                ),
-              ),
+                  width: 250,
+                  child: CustomButton(
+                    description: description,
+                  )),
             ])
         ]),
       ),
